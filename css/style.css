@@ -1,0 +1,139 @@
+/* style.css */
+
+/* 全体リセット */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 背景とフォント */
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background-color: #f2f2f2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* スマホ枠 */
+.phone-frame {
+  width: 360px;
+  max-width: 100%;
+  height: 640px;
+  border: 16px solid #333;
+  border-radius: 36px;
+  background-color: white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+/* 画面内スクリーン */
+.screen {
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  overflow-y: auto;
+  position: relative;
+}
+
+/* クリスマスカラー文字 */
+.christmas-text {
+  color: #006400; /* 深緑 */
+  text-align: center;
+  margin-bottom: 16px;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+/* 最初の画面のルール説明 */
+.screen p {
+  text-align: center;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+/* ゲームスタートボタン */
+#start_button {
+  display: block;
+  margin: 0 auto 20px auto;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #00c300;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* イラスト */
+#question_image {
+  max-width: 90%;
+  height: auto;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+/* 回答ボタンの配置 */
+.button_section {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.choice-btn {
+  flex: 1;
+  margin: 0 4px;
+  padding: 10px 0;
+  font-size: 14px;
+  background-color: #00c300;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+}
+
+/* 回答ボタンを押した時の余白 */
+.choice-btn:hover {
+  background-color: #00a300;
+}
+
+/* 結果表示 */
+#result_display {
+  text-align: center;
+  margin-bottom: 16px;
+  font-size: 16px;
+}
+
+/* 筆記体メッセージ */
+.cursive-text {
+  font-family: 'Brush Script MT', cursive;
+  font-size: 24px;
+}
+
+/* 次の画像・次の問題ボタン */
+#next_button {
+  display: block;
+  margin: 0 auto 16px auto;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #00c300;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* スマホ画面のスクロール対策 */
+.screen::-webkit-scrollbar {
+  display: none;
+}

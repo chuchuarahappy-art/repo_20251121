@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3名の画伯が描いた イラスト当てゲーム</title>
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP|Dancing+Script" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="phone-frame">
+    <div class="screen">
+      <!-- 最初の画面 -->
+      <h1 class="christmas-text">✨忘年会特別企画！始まります✨</h1>
+      <p class="christmas-text">
+        3名の画伯が描いたイラスト当てゲームです。<br>
+        各お題の3枚のイラストを見て、何が描かれているか当ててください！
+      </p>
+      <button id="start_button">ゲームスタート</button>
+
+      <!-- ゲーム画面 -->
+      <img id="question_image" src="" alt="問題のイラスト" style="display:none;">
+      <div class="button_section" id="choices_section" style="display:none;"></div>
+      <p id="result_display"></p>
+      <button id="next_button" style="display:none;">次の画像</button>
+    </div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script>
+    const QUESTIONS = [
+      { imgs: ["img/sazae_1.png","img/sazae_2.png","img/sazae_3.png"], choices:["サザエさん","カツオ","ワカメ"], answer:0 },
+      { imgs: ["img/stollen_1.png","img/stollen_2.png","img/stollen_3.png"], choices:["シュトーレン","パウンドケーキ","ブッシュ・ド・ノエル"], answer:0 },
+      { imgs: ["img/bananaman_1.png","img/bananaman_2.png","img/bananaman_3.png"], choices:["バナナマン","サンドウィッチマン","ダウンタウン"], answer:0 },
+      { imgs: ["img/employee_1.png","img/employee_2.png","img/employee_3.png"], choices:["◯◯さん","△△さん","××さん"], answer:0 }
+    ];
+
+    let currentQuestion = 0;
+    let currentImgIndex = 0;
+
+    // スタートボタンでゲーム開始
+    $("#start_button").on("click", function() {
+      $(this).hide();               // スタートボタン非表示
+      $("h1").text("✨3名の画伯が描いた イラスト当てゲーム✨");
+      $("p").hide();                // ルール説明非表示
+      $("#question_image").show();
+      loadQuestion();
+    });
+
+    function loadQuestion() {
+      const q = QUESTIONS[currentQuestion];
+      currentImgIndex = 0;
+
+      $("#result_display").text("").css({display:'block', height:'auto'});;
+      $("#choices_section").hide();
+      $("#next_button").text("次の画像").show();
+
+      $("#question_image").attr("src", q.imgs[currentImgIndex]);
+
+      $("#next_button").off("click").on("click", function() {
+        currentImgIndex++;
+        if (currentImgIndex < q.imgs.length) {
+          $("#question_image").attr("src", q.imgs[currentImgIndex]);
+        } else {
+          $(this).hide();
+          showChoices();
+        }
+      });
+    }
+
+    function showChoices() {
+      const q = QUESTIONS[currentQuestion];
+      const choicesDiv = $("#choices_section");
+      choicesDiv.empty().show();
+
+      q.choices.forEach((choice, index) => {
+        const btn = $(`<button class="choice-btn">${choice}</button>`);
+        btn.on("click", function() {
+          if (index === q.answer) {
+            $("#result_display").html('<span class="christmas-text">正解！🎉</span>');
+          } else {
+            $("#result_display").html(`<span class="christmas-text">不正解… 正解は「${q.choices[q.answer]}」です</span>`);
+          }
+          $("#next_button").text("次の問題").show().off("click").on("click", nextQuestion);
+        });
+        choicesDiv.append(btn);
+      });
+    }
+
+    function nextQuestion() {
+      currentQuestion++;
+      if (currentQuestion < QUESTIONS.length) {
+        loadQuestion();
+      } else {
+        // ゲーム終了
+        $("#question_image").hide();
+        $("#choices_section").hide();
+        $("#next_button").hide().off("click");
+
+        $("#result_display")
+          .html('<span class="cursive-text">Game Over! Great job! 🎉<br>Have a wonderful holiday season!</span>')
+          .css({
+            display: 'flex',
+            'justify-content': 'center',
+            'align-items': 'center',
+            'text-align': 'center',
+            height: '300px'
+          });
+      }
+    }
+  </script>
+</body>
+</html>
